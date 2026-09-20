@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GestMedia detector</title>
+  </head>
+  <body>
+    <!--
+      Hidden offscreen document. It owns the single webcam stream and runs hand
+      tracking for the whole browser, so we never pay for one detector per tab.
+    -->
+    <video id="cam" autoplay playsinline muted></video>
+    <script type="module" src="detector.js"></script>
+  </body>
+</html>

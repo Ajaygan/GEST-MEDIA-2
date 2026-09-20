@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GestMedia</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <img src="../icons/icon-48.png" alt="" width="28" height="28" />
+        <div>
+          <h1>GestMedia</h1>
+          <p id="status-line" class="muted">Loading…</p>
+        </div>
+      </div>
+      <label class="switch" title="Turn gesture control on/off (Alt+Shift+G)">
+        <input type="checkbox" id="toggle" />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <section id="permission-card" class="card warn hidden">
+      <p><strong>Camera access needed.</strong> Grant it once and gestures work everywhere.</p>
+      <button class="primary" id="grant">Grant camera access</button>
+    </section>
+
+    <section class="card live">
+      <div class="live-row">
+        <span class="live-dot" id="live-dot"></span>
+        <span id="live-gesture">—</span>
+        <span class="spacer"></span>
+        <span class="muted" id="live-perf"></span>
+      </div>
+      <p class="muted small" id="target-line">No media detected yet.</p>
+      <p class="muted small" id="camera-line"></p>
+    </section>
+
+    <section class="card">
+      <h2>Gestures</h2>
+      <ul class="gestures" id="gesture-list"></ul>
+    </section>
+
+    <section class="card">
+      <label class="field">
+        <span>Performance</span>
+        <select id="performance"></select>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="onlyWhenMediaPresent" />
+        <span>Camera only while media is on screen</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="showHud" />
+        <span>Show on-page confirmation</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="mirrored" />
+        <span>Mirrored camera (selfie view)</span>
+      </label>
+    </section>
+
+    <footer>
+      <button id="block-site" class="ghost">Disable on this site</button>
+      <button id="open-options" class="ghost">All settings</button>
+    </footer>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

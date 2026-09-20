@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GestMedia — Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <img src="../icons/icon-128.png" alt="" width="56" height="56" />
+        <div>
+          <h1>GestMedia</h1>
+          <p class="muted">
+            Webcam hand gestures that control whatever is playing in your browser — YouTube,
+            JioHotstar, Hotstar, Netflix, Spotify or any page with a video or audio element.
+            Everything runs on-device; no frame ever leaves your computer.
+          </p>
+        </div>
+        <label class="switch" title="Turn gesture control on/off">
+          <input type="checkbox" id="toggle" />
+          <span class="slider"></span>
+        </label>
+      </header>
+
+      <section class="card" id="camera-card">
+        <h2>1 · Camera access</h2>
+        <p class="muted" id="camera-status">Checking…</p>
+        <div class="row">
+          <button class="primary" id="grant">Grant camera access</button>
+          <button class="ghost" id="site-settings">Open Chrome camera settings</button>
+        </div>
+        <label class="field" style="margin-top:16px">
+          <span>Camera to use</span>
+          <select id="cameraDeviceId"></select>
+        </label>
+        <div class="row">
+          <button id="use-builtin">Use this PC’s built-in camera</button>
+          <button class="ghost" id="refresh-cameras">Refresh camera list</button>
+          <span class="muted small" id="camera-hint"></span>
+        </div>
+        <details class="note">
+          <summary>Chrome keeps opening my phone (“V2545”, “Link to Windows”)</summary>
+          <p class="muted small">
+            That window comes from Windows’ <em>Phone Link</em> feature, which registers your
+            phone as a virtual webcam. GestMedia never selects it automatically — pick your real
+            webcam above (or hit <strong>Use this PC’s built-in camera</strong>) and it is
+            remembered. To stop every app from grabbing it:
+          </p>
+          <ol class="muted small">
+            <li><strong>Chrome:</strong> <code>chrome://settings/content/camera</code> → set the
+              default camera to your integrated webcam.</li>
+            <li><strong>Windows:</strong> Settings → Bluetooth &amp; devices → <em>Mobile
+              devices</em> → turn off “Use your phone as a connected camera”.</li>
+            <li>Make sure the built-in camera is enabled in Settings → Bluetooth &amp; devices →
+              Cameras, and allowed under Privacy &amp; security → Camera.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>2 · Try your gestures</h2>
+        <p class="muted">
+          A live preview using the exact same detector the extension runs. Useful to check your
+          lighting and framing on a slow machine.
+        </p>
+        <div class="preview-wrap">
+          <video id="preview" autoplay playsinline muted></video>
+          <canvas id="overlay"></canvas>
+          <div class="preview-badge" id="preview-badge">idle</div>
+        </div>
+        <div class="row">
+          <button id="preview-toggle">Start preview</button>
+          <span class="muted small" id="preview-stats"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3 · Gesture mapping</h2>
+        <table class="mapping">
+          <thead>
+            <tr><th>Gesture</th><th>Action</th><th>Enabled</th></tr>
+          </thead>
+          <tbody id="mapping-body"></tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>4 · Performance &amp; feel</h2>
+        <div class="grid">
+          <label class="field">
+            <span>Performance preset</span>
+            <select id="performance"></select>
+          </label>
+          <label class="field">
+            <span>Cooldown between actions</span>
+            <input type="range" id="cooldownMs" min="400" max="2500" step="100" />
+            <output id="cooldownMs-out"></output>
+          </label>
+          <label class="field">
+            <span>Volume repeat speed</span>
+            <input type="range" id="volumeRepeatMs" min="200" max="1200" step="50" />
+            <output id="volumeRepeatMs-out"></output>
+          </label>
+          <label class="field">
+            <span>Volume step</span>
+            <input type="range" id="volumeStep" min="0.02" max="0.25" step="0.01" />
+            <output id="volumeStep-out"></output>
+          </label>
+          <label class="field">
+            <span>Seek fallback (👉/👈 with no playlist)</span>
+            <input type="range" id="seekSeconds" min="5" max="60" step="5" />
+            <output id="seekSeconds-out"></output>
+          </label>
+        </div>
+        <label class="check"><input type="checkbox" id="onlyWhenMediaPresent" /><span>Only run the camera while a tab has media (recommended)</span></label>
+        <label class="check"><input type="checkbox" id="adaptiveThrottle" /><span>Slow the detector down when no hand is visible</span></label>
+        <label class="check"><input type="checkbox" id="mirrored" /><span>Camera is mirrored (selfie view)</span></label>
+        <label class="check"><input type="checkbox" id="showHud" /><span>Show the on-page confirmation toast</span></label>
+        <p class="muted small" id="preset-detail"></p>
+      </section>
+
+      <section class="card">
+        <h2>5 · Disabled sites</h2>
+        <p class="muted small">Gestures are ignored on these hostnames.</p>
+        <div class="row">
+          <input type="text" id="block-input" placeholder="meet.google.com" />
+          <button id="block-add">Add</button>
+        </div>
+        <ul class="chips" id="block-list"></ul>
+      </section>
+
+      <footer class="muted small">
+        Hand tracking by MediaPipe Tasks Vision, bundled locally. Video frames are processed in an
+        offscreen document and discarded immediately — nothing is recorded, stored or uploaded.
+      </footer>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

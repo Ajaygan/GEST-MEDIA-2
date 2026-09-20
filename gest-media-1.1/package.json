@@ -1,0 +1,18 @@
+{
+  "name": "gest-media",
+  "version": "1.1.3",
+  "private": true,
+  "description": "GestMedia \u2014 webcam hand-gesture media control for any site, as a Chrome MV3 extension.",
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "postinstall": "node scripts/setup.mjs --no-model",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "package": "node scripts/package.mjs",
+    "doctor": "node scripts/doctor.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1"
+  },
+  "license": "MIT"
+}
